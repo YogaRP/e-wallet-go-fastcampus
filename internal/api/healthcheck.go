@@ -9,7 +9,7 @@ import (
 )
 
 type Healthcheck struct {
-	HealthcheckServices interfaces.IHalthcheckServices
+	HealthcheckServices interfaces.IHealthcheckServices
 }
 
 func (api *Healthcheck) HealthcheckHandlerHTTP(c *gin.Context) {

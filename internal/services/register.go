@@ -8,11 +8,11 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type RegisterService struct {
-	RegisterRepo interfaces.IRegisterRepo
+type UserService struct {
+	UserRepo interfaces.IUserRepo
 }
 
-func (s *RegisterService) Register(ctx context.Context, request models.User) (any, error) {
+func (s *UserService) Register(ctx context.Context, request models.User) (any, error) {
 	hashPassword, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
 
 	if err != nil {
@@ -21,7 +21,7 @@ func (s *RegisterService) Register(ctx context.Context, request models.User) (an
 
 	request.Password = string(hashPassword)
 
-	err = s.RegisterRepo.InsertNewUser(ctx, &request)
+	err = s.UserRepo.InsertNewUser(ctx, &request)
 
 	if err != nil {
 		return nil, err

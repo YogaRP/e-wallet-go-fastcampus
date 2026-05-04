@@ -3,7 +3,7 @@ package services
 import "ewallet-fastcampus/internal/interfaces"
 
 type Healthcheck struct {
-	HealthcheckRepository interfaces.IHalthcheckRepo
+	HealthcheckRepository interfaces.IHealthcheckRepo
 }
 
 func (s *Healthcheck) HealthcheckServices() (string, error) {
