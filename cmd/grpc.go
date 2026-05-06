@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	pb "ewallet-fastcampus/cmd/proto"
+	"ewallet-fastcampus/cmd/proto/tokenvalidation"
 
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
@@ -17,7 +17,7 @@ func ServerGRPC() {
 	s := grpc.NewServer()
 
 	//list method
-	pb.RegisterTokenValidationServer(s, dependency.TokenValidationApi)
+	tokenvalidation.RegisterTokenValidationServer(s, dependency.TokenValidationApi)
 
 	lis, err := net.Listen("tcp", ":"+helpers.GetEnv("GRPC_PORT", "7000"))
 

@@ -2,7 +2,7 @@ package api
 
 import (
 	"context"
-	pb "ewallet-fastcampus/cmd/proto"
+	"ewallet-fastcampus/cmd/proto/tokenvalidation"
 	"ewallet-fastcampus/constants"
 	"ewallet-fastcampus/helpers"
 	"ewallet-fastcampus/internal/interfaces"
@@ -11,10 +11,10 @@ import (
 
 type TokenValidationHandler struct {
 	TokenValidationService interfaces.ITokenValidationService
-	pb.UnimplementedTokenValidationServer
+	tokenvalidation.UnimplementedTokenValidationServer
 }
 
-func (s *TokenValidationHandler) ValidateToken(ctx context.Context, req *pb.TokenRequest) (*pb.TokenResponse, error) {
+func (s *TokenValidationHandler) ValidateToken(ctx context.Context, req *tokenvalidation.TokenRequest) (*tokenvalidation.TokenResponse, error) {
 	var (
 		token = req.Token
 		log   = helpers.Logger
@@ -23,21 +23,21 @@ func (s *TokenValidationHandler) ValidateToken(ctx context.Context, req *pb.Toke
 	if token == "" {
 		err := fmt.Errorf("token is empty")
 		log.Error(err)
-		return &pb.TokenResponse{
+		return &tokenvalidation.TokenResponse{
 			Message: err.Error(),
 		}, nil
 	}
 
 	claimToken, err := s.TokenValidationService.TokenValidation(ctx, token)
 	if err != nil {
-		return &pb.TokenResponse{
+		return &tokenvalidation.TokenResponse{
 			Message: err.Error(),
 		}, nil
 	}
 
-	return &pb.TokenResponse{
+	return &tokenvalidation.TokenResponse{
 		Message: constants.SuccessMessage,
-		Data: &pb.UserData{
+		Data: &tokenvalidation.UserData{
 			UserId:   int64(claimToken.UserID),
 			Username: claimToken.Username,
 			FullName: claimToken.Fullname,

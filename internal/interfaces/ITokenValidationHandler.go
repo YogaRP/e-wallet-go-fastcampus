@@ -2,12 +2,12 @@ package interfaces
 
 import (
 	"context"
-	pb "ewallet-fastcampus/cmd/proto"
+	"ewallet-fastcampus/cmd/proto/tokenvalidation"
 	"ewallet-fastcampus/helpers"
 )
 
 type ITokenValidationHandler interface {
-	ValidateToken(ctx context.Context, req *pb.TokenRequest) (*pb.TokenResponse, error)
+	ValidateToken(ctx context.Context, req *tokenvalidation.TokenRequest) (*tokenvalidation.TokenResponse, error)
 }
 
 type ITokenValidationService interface {
