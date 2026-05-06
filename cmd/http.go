@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"ewallet-fastcampus/external"
 	"ewallet-fastcampus/helpers"
 	"ewallet-fastcampus/internal/api"
 	"ewallet-fastcampus/internal/interfaces"
@@ -50,12 +51,15 @@ func dependencyInject() Dependency {
 		HealthcheckServices: healthcheckSvc,
 	}
 
+	extWallet := &external.ExtWallet{}
+
 	userRepo := &repository.UserRepository{
 		DB: helpers.DB,
 	}
 
 	registerService := &services.UserService{
-		UserRepo: userRepo,
+		UserRepo:       userRepo,
+		ExternalWallet: extWallet,
 	}
 
 	registerApi := &api.RegisterHandler{
